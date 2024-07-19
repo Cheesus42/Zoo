@@ -9,8 +9,8 @@ class Animal;
 
 class Space{
 public:
-    static float sizeX;
-    static float sizeY;
+    float sizeX;
+    float sizeY;
 };
 
 class Exhibit : public Space{

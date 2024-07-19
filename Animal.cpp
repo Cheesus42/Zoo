@@ -28,9 +28,9 @@ std::string Elephant::confess(Animal* animal){
             std::mt19937 gen(rd()); // mersenne_twister_engine seeded with rd()
             std::uniform_int_distribution<> distrib(1, 100);
             int rand = distrib(gen);
-            if(rand <= 0){//60
+            if(rand <= 60){
                 return "Yay " + this->show() + " " + this->name + " confessed to " + animal->show() + " " + animal->name +" and it worked, they are now together as a pair.";
-            }else if(rand >= 100){//80
+            }else if(rand >= 80){
                 return "Oh No " + this->show() + " " + this->name + " confessed to " + animal->show() + " " + animal->name + ", but it didn't work out for them. " + this->name + " is now sad.";
             }else{
                 std::cout<<"Oh No " << this->show() << " " << this->name << " confessed to " << animal->show() << " " << animal->name << ", but it didn't work out for them. " << this->name << " got depressed and killed itself";
@@ -64,5 +64,5 @@ std::string Elephant::waterFountain(Exhibit* ex, float radius){
             animals[i]->wet = true;
         }
     }
-    return 0;
+    return "";
 }

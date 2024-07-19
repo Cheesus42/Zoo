@@ -35,7 +35,7 @@ public:
 
 class Elephant : public Animal{
 public:
-    Elephant(std::string name, Gender gender, Sexuality sex, float posX=0, float posY=0){
+    Elephant(std::string name, Gender gender, Sexuality sex, float posX=1.0, float posY=1.0){
         this->name = name;
         this->gender = gender;
         this->sex = sex;
