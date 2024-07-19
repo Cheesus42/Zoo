@@ -1,6 +1,14 @@
 #include "Animal.h"
 #include <iostream>
 #include <random>
+#include <cmath>
+#include <iostream>
+
+float Animal::distanceTo(Animal* animal){
+    float distance;
+    distance = std::sqrt(pow((this->posX - animal->posX), 2) + pow((this->posY - animal->posY), 2));
+    return distance;
+}
 
 std::string Elephant::show(){
     return "Elephant \U0001F418";
@@ -18,12 +26,16 @@ std::string Elephant::confess(Animal* animal){
         if(!(animal->gender == this->gender) || (animal->sex == BI || animal->sex == HOMO)){
             std::random_device rd;  // a seed source for the random number engine
             std::mt19937 gen(rd()); // mersenne_twister_engine seeded with rd()
-            std::uniform_int_distribution<> distrib(1, 10);
+            std::uniform_int_distribution<> distrib(1, 100);
             int rand = distrib(gen);
-            if(rand <= 6){
+            if(rand <= 0){//60
                 return "Yay " + this->show() + " " + this->name + " confessed to " + animal->show() + " " + animal->name +" and it worked, they are now together as a pair.";
-            }else{
+            }else if(rand >= 100){//80
                 return "Oh No " + this->show() + " " + this->name + " confessed to " + animal->show() + " " + animal->name + ", but it didn't work out for them. " + this->name + " is now sad.";
+            }else{
+                std::cout<<"Oh No " << this->show() << " " << this->name << " confessed to " << animal->show() << " " << animal->name << ", but it didn't work out for them. " << this->name << " got depressed and killed itself";
+                delete[] this;
+                return "";
             }
         }else{
             return "Oh No " + this->show() + " " + this->name + " confessed to " + animal->show() + " " + animal->name + ", but " + animal->name + " isn't attracted to " + this->name + " because of their sexuality.";
@@ -44,6 +56,13 @@ std::string Elephant::confess(Animal* animal){
     }
 }
 
-std::string Elephant::walk(){
-    return "Elephant " + this->name + " is walking";
+std::string Elephant::waterFountain(Exhibit* ex, float radius){
+    std::vector<Animal*> animals = ex->animals;
+    for (int i = animals.size() - 1; i >= 0; i--)
+    {
+        if (this->distanceTo(animals[i]) <= radius){
+            animals[i]->wet = true;
+        }
+    }
+    return 0;
 }
