@@ -18,14 +18,15 @@ public:
     std::string name;
     Gender gender;
     Sexuality sex;
-    float posX;
-    float posY;
+    int posX;
+    int posY;
     bool wet = false;
 
     virtual std::string show() = 0;
     virtual std::string eat() = 0;
     virtual std::string fight(Animal* animal) = 0;
     virtual std::string confess(Animal* animal) = 0;
+    virtual std::string asciiModel() = 0;
     float distanceTo(Animal* animal);
 
     virtual ~Animal(){
@@ -49,6 +50,7 @@ public:
     std::string eat() override;
     std::string fight(Animal* animal) override;
     std::string confess(Animal* animal) override;
+    std::string asciiModel() override;
 
     std::string waterFountain(Exhibit* ex, float radius);
 

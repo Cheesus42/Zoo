@@ -7,23 +7,35 @@
 class Animal;
 
 
-class Space{
+class Exhibit {
 public:
-    float sizeX;
-    float sizeY;
-};
-
-class Exhibit : public Space{
-public:
+    int sizeX;
+    int sizeY;
     std::string name;
     int size;
     std::vector<Animal*> animals;
-    Exhibit(std::string name, float sizeX, float sizeY){
+    Animal*** field;
+    Exhibit(std::string name, int sizeX, int sizeY){
+        this->name = name;
         this->sizeX = sizeX;
         this->sizeY = sizeY;
-        this->name = name;
+        field = new Animal**[sizeX];
+        for (int i = 0; i < sizeX; i++)
+        {
+            field[i] = new Animal*[sizeY];
+            for (int j = 0; j < sizeY; j++)
+            {
+                field[i][j] = nullptr;
+            }   
+        }
     }
-
+    ~Exhibit(){
+        for (int i = 0; i < sizeX; ++i) {
+            delete[] field[i];
+        }
+        delete[] field;
+    }
     void addAnimal(Animal* animal);
+    void displayExhibit();
 };
 #endif //__SPACE__

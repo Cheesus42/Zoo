@@ -56,6 +56,10 @@ std::string Elephant::confess(Animal* animal){
     }
 }
 
+std::string Elephant::asciiModel(){
+    return "E";
+}
+
 std::string Elephant::waterFountain(Exhibit* ex, float radius){
     std::vector<Animal*> animals = ex->animals;
     for (int i = animals.size() - 1; i >= 0; i--)
@@ -66,3 +70,4 @@ std::string Elephant::waterFountain(Exhibit* ex, float radius){
     }
     return "";
 }
+
