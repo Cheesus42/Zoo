@@ -22,16 +22,14 @@ public:
     int posY;
     bool wet = false;
 
+    virtual void move(int step, Exhibit* exib) = 0;
     virtual std::string show() = 0;
-    virtual std::string eat() = 0;
-    virtual std::string fight(Animal* animal) = 0;
     virtual std::string confess(Animal* animal) = 0;
     virtual std::string asciiModel() = 0;
     float distanceTo(Animal* animal);
 
     virtual ~Animal(){
-        std::cout<< "Unknown Animal " << this->name << " has been killed :(";
-    }
+    };
 };
 
 class Elephant : public Animal{
@@ -43,12 +41,12 @@ public:
         this->posX = posX;
         this->posY = posY;
     }
-    ~Elephant(){
-        std::cout<< this->show() << this->name << " has been killed :(";
+    ~Elephant() override {
+        std::cout<< this->show() << " " << this->name << " has been killed :(" << std::endl;
     }
+
+    void move(int step, Exhibit* exib) override;
     std::string show() override;
-    std::string eat() override;
-    std::string fight(Animal* animal) override;
     std::string confess(Animal* animal) override;
     std::string asciiModel() override;
 

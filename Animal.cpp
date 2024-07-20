@@ -3,6 +3,52 @@
 #include <random>
 #include <cmath>
 #include <iostream>
+int randomNum(int x, int y);
+void Elephant::move(int step, Exhibit* exib){
+    exib->removeAnimal(this);
+    for (int i = 0; i < step; ++i)
+    {
+        int direction = randomNum(1, 8);
+        switch(direction){
+        case 1:
+            posY += 1;
+            break;
+        case 2:
+            posY += 1;
+            posX += 1;
+            break;
+        case 3:
+            posX += 1;
+            break;
+        case 4:
+            posY -= 1;
+            posX += 1;
+            break;
+        case 5:
+            posY -= 1;
+            break;
+        case 6:
+            posY -= 1;
+            posX -= 1;
+            break;
+        case 7:
+            posX -= 1;
+            break;
+        case 8:
+            posY += 1;
+            posX -= 1;
+            break;
+        default:
+            break;
+        }   
+        posX < 1 ? posX = 1: posX;
+        posX > exib->sizeX ? posX = exib->sizeX: posX;
+        posY < 1 ? posY = 1: posY;
+        posY > exib->sizeY ? posY = exib->sizeY: posY; 
+    } 
+    
+    exib->addAnimal(this);
+}
 
 float Animal::distanceTo(Animal* animal){
     float distance;
@@ -13,38 +59,25 @@ float Animal::distanceTo(Animal* animal){
 std::string Elephant::show(){
     return "Elephant \U0001F418";
 }
-std::string Elephant::eat(){
-    return this->show() + " Elephant is eating";
-}
-
-std::string Elephant::fight(Animal* animal){
-    return "Elephant " + this->name + " is fighting " + animal->name;
-}
 
 std::string Elephant::confess(Animal* animal){
     if(typeid(*animal) == typeid(*this)){
         if(!(animal->gender == this->gender) || (animal->sex == BI || animal->sex == HOMO)){
-            std::random_device rd;  // a seed source for the random number engine
-            std::mt19937 gen(rd()); // mersenne_twister_engine seeded with rd()
-            std::uniform_int_distribution<> distrib(1, 100);
-            int rand = distrib(gen);
+            int rand = randomNum(1, 100);
             if(rand <= 60){
                 return "Yay " + this->show() + " " + this->name + " confessed to " + animal->show() + " " + animal->name +" and it worked, they are now together as a pair.";
             }else if(rand >= 80){
                 return "Oh No " + this->show() + " " + this->name + " confessed to " + animal->show() + " " + animal->name + ", but it didn't work out for them. " + this->name + " is now sad.";
             }else{
                 std::cout<<"Oh No " << this->show() << " " << this->name << " confessed to " << animal->show() << " " << animal->name << ", but it didn't work out for them. " << this->name << " got depressed and killed itself";
-                delete[] this;
+                delete this;
                 return "";
             }
         }else{
             return "Oh No " + this->show() + " " + this->name + " confessed to " + animal->show() + " " + animal->name + ", but " + animal->name + " isn't attracted to " + this->name + " because of their sexuality.";
         }
         if((animal->gender == this->gender) || (animal->sex == BI || animal->sex == HETERO)){
-            std::random_device rd;  // a seed source for the random number engine
-            std::mt19937 gen(rd()); // mersenne_twister_engine seeded with rd()
-            std::uniform_int_distribution<> distrib(1, 10);
-            int rand = distrib(gen);
+            int rand = randomNum(1, 10);
             if(rand <= 6){
                 return "Yay " + this->show() + " " + this->name + " confessed to " + animal->show() + " " + animal->name +" and it worked, they are now together as a pair.";
             }else{
@@ -71,3 +104,9 @@ std::string Elephant::waterFountain(Exhibit* ex, float radius){
     return "";
 }
 
+int randomNum(int x, int y){
+    std::random_device rd;  // a seed source for the random number engine
+    std::mt19937 gen(rd()); // mersenne_twister_engine seeded with rd()
+    std::uniform_int_distribution<> distrib(x, y);
+    return distrib(gen);
+}

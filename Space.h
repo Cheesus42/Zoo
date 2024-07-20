@@ -19,23 +19,24 @@ public:
         this->name = name;
         this->sizeX = sizeX;
         this->sizeY = sizeY;
-        field = new Animal**[sizeX];
-        for (int i = 0; i < sizeX; i++)
+        field = new Animal**[sizeY];
+        for (int i = 0; i < sizeY; i++)
         {
-            field[i] = new Animal*[sizeY];
-            for (int j = 0; j < sizeY; j++)
+            field[i] = new Animal*[sizeX];
+            for (int j = 0; j < sizeX; j++)
             {
                 field[i][j] = nullptr;
             }   
         }
     }
     ~Exhibit(){
-        for (int i = 0; i < sizeX; ++i) {
+        for (int i = 0; i < sizeY; ++i) {
             delete[] field[i];
         }
         delete[] field;
     }
     void addAnimal(Animal* animal);
+    void removeAnimal(Animal* animal);
     void displayExhibit();
 };
 #endif //__SPACE__
