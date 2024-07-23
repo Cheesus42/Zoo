@@ -35,6 +35,7 @@ public:
         }
         delete[] field;
     }
+    void run();
     void addAnimal(Animal* animal);
     void removeAnimal(Animal* animal);
     void displayExhibit();

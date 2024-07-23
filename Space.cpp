@@ -28,4 +28,17 @@ void Exhibit::displayExhibit(){
         }
         std::cout<< std::endl;
     }
+    std::cout<< std::endl;
+}
+
+void Exhibit::run(){
+    for (int i = 0; i < sizeY; ++i) {
+        for (int j = 0; j < sizeX; ++j) {
+            if(field[i][j] != nullptr){
+                field[i][j]->move(1, this);
+                
+            }
+        }
+    }
+    this->displayExhibit();
 }

@@ -2,6 +2,8 @@
 #include <iostream>
 #include <string>
 #include <cstdlib>
+#include <chrono>
+#include <thread>
 
 std::istream& operator>>(std::istream& stream, Gender& gender){
     std::string input;
@@ -32,51 +34,74 @@ std::istream& operator>>(std::istream& stream, Sexuality& sex){
     }
     return stream;
 }
-
+int randomNum(int x, int y);
+std::string generateRandomString(int length);
+Gender getRandomGender();
+Sexuality getRandomSex();
 int main(){
-    Exhibit* exib = new Exhibit("Elephants", 50, 10);
+    using namespace std::this_thread;
+    using namespace std::chrono;
 
-    Elephant* ele1 = new Elephant("gandalf", MALE, BI, 20, 5);
-    Elephant* ele2 = new Elephant("saruman", MALE, BI, 30, 3);
+    Exhibit* exib = new Exhibit("Leons Folterkammer", 50, 10);
 
-    exib->addAnimal(ele1);
-    exib->addAnimal(ele2);
-    exib->displayExhibit();
+    for (int i = 0; i < 5; ++i)
+    {
+        exib->addAnimal(new Elephant(generateRandomString(randomNum(3, 7)), getRandomGender(), getRandomSex(), randomNum(1, 49), randomNum(1, 9)));
+    }
+    
+    for (int i = 0; i < 1000; ++i)
+    {
+        sleep_for(milliseconds(500));
+        std::system("cls");
+        exib->run();
+    }
 
-    std::cout<< ele1->confess(ele2);
-    //delete ele1;
-    // for (int i = 0 - 1; i < 1000; i++)
-    // {
-    //     std::system("cls");
-    //     ele1->move(1, exib);
-    //     std::cout<< std::endl;
-    //     exib->displayExhibit();
-    // }
 
-    // std::string s;
-    // std::cout<< "add to add a new Animal";
-    // std::cin>> s;
-    // if(s == "add"){
-    //     std::cout<< "what kind of animal: ";
-    //     std::cin>> s;
-    //     std::cout<< std::endl;
-    //     if(s == "elephant"){
-    //         std::string name;
-    //         Gender gender;
-    //         Sexuality sex;
-    //         std::cout<< "Give a Name for your Elephant: ";
-    //         std::cin >> name;
-    //         std::cout<< std::endl;
-    //         std::cout<< "What's their Gender: ";
-    //         std::cin >> gender;
-    //         std::cout<< std::endl;
-    //         std::cout<< "What's their sexual orientation: ";
-    //         std::cin >> sex;
-    //         std::cout<< std::endl;
-    //         Elephant* customEl = new Elephant(name, gender, sex, 10, 10);
-    //         exib->addAnimal(customEl);
-    //         exib->displayExhibit();
-    //     }
-    // }
+
 }
 
+int randomNum(int x, int y){
+    std::random_device rd;  // a seed source for the random number engine
+    std::mt19937 gen(rd()); // mersenne_twister_engine seeded with rd()
+    std::uniform_int_distribution<> distrib(x, y);
+    return distrib(gen);
+}
+std::string generateRandomString(int length) {
+    const std::string characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+                                   "abcdefghijklmnopqrstuvwxyz"
+                                   "0123456789";
+    std::random_device rd; // Zufallszahlengenerator für die Initialisierung
+    std::mt19937 generator(rd()); // Mersenne-Twister Zufallszahlengenerator
+    std::uniform_int_distribution<> distribution(0, characters.size() - 1);
+
+    std::string randomString;
+    for (size_t i = 0; i < length; ++i) {
+        randomString += characters[distribution(generator)];
+    }
+
+    return randomString;
+}
+Gender getRandomGender() {
+    // Zufallszahlengenerator initialisieren
+    std::random_device rd;
+    std::mt19937 generator(rd());
+    std::uniform_int_distribution<> distribution(0, NUM_GENDER - 1);
+
+    // Zufälligen Index erzeugen
+    int randomIndex = distribution(generator);
+
+    // Zufälliges Element zurückgeben
+    return static_cast<Gender>(randomIndex);
+}
+Sexuality getRandomSex() {
+    // Zufallszahlengenerator initialisieren
+    std::random_device rd;
+    std::mt19937 generator(rd());
+    std::uniform_int_distribution<> distribution(0, NUM_SEX - 1);
+
+    // Zufälligen Index erzeugen
+    int randomIndex = distribution(generator);
+
+    // Zufälliges Element zurückgeben
+    return static_cast<Sexuality>(randomIndex);
+}
