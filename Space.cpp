@@ -1,6 +1,7 @@
 #include "Space.h"
 #include <iostream>
 #include <algorithm>
+#include <functional>
 
 void Exhibit::addAnimal(Animal* animal){
     this->animals.push_back(animal);
@@ -42,3 +43,5 @@ void Exhibit::run(){
     }
     this->displayExhibit();
 }
+
+void iterator(const std::function<void(int)>& func)

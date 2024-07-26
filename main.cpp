@@ -42,11 +42,11 @@ int main(){
     using namespace std::this_thread;
     using namespace std::chrono;
 
-    Exhibit* exib = new Exhibit("Leons Folterkammer", 50, 10);
+    Exhibit* exib = new Exhibit("Leons Folterkammer", 50, 20);
 
     for (int i = 0; i < 5; ++i)
     {
-        exib->addAnimal(new Elephant(generateRandomString(randomNum(3, 7)), getRandomGender(), getRandomSex(), randomNum(1, 49), randomNum(1, 9)));
+        exib->addAnimal(new Elephant(generateRandomString(randomNum(3, 7)), getRandomGender(), getRandomSex(), randomNum(1, (exib->sizeX)-1), randomNum(1, (exib->sizeY)-1)));
     }
     
     for (int i = 0; i < 1000; ++i)
